@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Phone Number DNC Checker</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-sun"></i>
+            <span>Dark Mode</span>
+        </div>
+
+        <h1><i class="fas fa-phone-alt"></i> US Phone Number DNC Checker</h1>
+
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <div class="drag-drop-area" id="dragDropArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Drag & Drop your file here</h3>
+                <p>or</p>
+                <input type="file" id="fileInput" class="file-input-hidden" accept=".txt,.csv">
+                <label for="fileInput" class="file-label">
+                    <i class="fas fa-folder-open"></i> Browse Files
+                </label>
+                <p class="hint">
+                    <i class="fas fa-info-circle"></i> .txt or .csv with one number per line
+                </p>
+            </div>
+            
+            <!-- File Preview -->
+            <div id="filePreview" class="file-preview" style="display: none;">
+                <div class="preview-header">
+                    <h3><i class="fas fa-file-alt"></i> <span id="fileName"></span></h3>
+                    <span class="badge" id="fileCount"></span>
+                </div>
+                <div class="preview-numbers" id="previewNumbers"></div>
+            </div>
+            
+            <!-- Control Panel -->
+            <div id="controlPanel" class="control-panel" style="display: none;">
+                <div class="speed-control">
+                    <label><i class="fas fa-tachometer-alt"></i> Processing Speed:</label>
+                    <div class="slider-container">
+                        <span>Fast</span>
+                        <input type="range" id="speedSlider" min="2000" max="6000" value="4000" step="500">
+                        <span>Slow</span>
+                    </div>
+                    <span id="speedValue">4.0 seconds</span>
+                    <p class="hint"><i class="fas fa-clock"></i> Slow speed = better results</p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-success" id="startProcessingBtn">
+                        <i class="fas fa-play"></i> Start Processing
+                    </button>
+                    <button class="btn btn-danger" id="cancelProcessingBtn" style="display: none;">
+                        <i class="fas fa-stop"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <i class="fas fa-list"></i>
+                <h3>Total Numbers</h3>
+                <p id="totalCount">0</p>
+            </div>
+            <div class="stat-card clean">
+                <i class="fas fa-check-circle"></i>
+                <h3>Clean Numbers</h3>
+                <p id="cleanCount">0</p>
+            </div>
+            <div class="stat-card dnc">
+                <i class="fas fa-ban"></i>
+                <h3>DNC Numbers</h3>
+                <p id="dncCount">0</p>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-header">
+                <span id="progressStatus">Checking numbers...</span>
+                <span id="progressPercentage">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p id="progressDetail">0/0 numbers checked</p>
+        </div>
+
+        <!-- State Download -->
+        <div class="state-download-section" id="stateDownloadSection" style="display: none;">
+            <h3><i class="fas fa-download"></i> Download by State</h3>
+            <div class="state-buttons" id="stateButtons"></div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons main-buttons">
+            <button class="btn btn-success" id="downloadCleanBtn" disabled>
+                <i class="fas fa-download"></i> Download Clean
+            </button>
+            <button class="btn btn-danger" id="downloadDncBtn" disabled>
+                <i class="fas fa-download"></i> Download DNC
+            </button>
+            <button class="btn btn-secondary" id="clearResultsBtn">
+                <i class="fas fa-trash"></i> Clear All
+            </button>
+        </div>
+
+        <!-- Results Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phone Number</th>
+                        <th>Status</th>
+                        <th>Listed</th>
+                        <th>Type</th>
+                        <th>State</th>
+                        <th>NDNC</th>
+                        <th>SDNC</th>
+                        <th>Person</th>
+                        <th>Copy</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                    <tr>
+                        <td colspan="9" class="no-data">
+                            <i class="fas fa-upload"></i> Upload a file to start
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Keyboard Shortcuts -->
+    <div class="shortcuts-info">
+        <i class="fas fa-keyboard"></i> Ctrl+V: Paste | Ctrl+S: Save
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
